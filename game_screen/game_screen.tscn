@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://2ritdjleiidw"]
+
+[ext_resource type="LabelSettings" uid="uid://bq7yn8nril4vi" path="res://assets/GM_32_Dark.tres" id="1_m167l"]
+[ext_resource type="Script" path="res://game_screen/game_screen.gd" id="1_wc61f"]
+[ext_resource type="Texture2D" uid="uid://jls3heemlkor" path="res://assets/ui/blue_button00.png" id="2_r78co"]
+[ext_resource type="PackedScene" uid="uid://c38yjygx7h3u0" path="res://memory_tile/memory_tile.tscn" id="2_xvnxo"]
+[ext_resource type="Texture2D" uid="uid://dpotuvhin2t72" path="res://assets/ui/yellow_button00.png" id="3_76r6t"]
+[ext_resource type="Texture2D" uid="uid://btq55skump0ip" path="res://assets/ui/green_button00.png" id="4_fwpol"]
+[ext_resource type="FontFile" uid="uid://iittugcvt7g5" path="res://assets/fonts/gemunu-libre-v8-latin-700.ttf" id="7_ie6h4"]
+[ext_resource type="PackedScene" uid="uid://db11awljpmw01" path="res://scorer/scorer.tscn" id="8_g4fk8"]
+[ext_resource type="PackedScene" uid="uid://c0raoud6vp0r1" path="res://game_over/game_over.tscn" id="9_stbae"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vxp40"]
+font = ExtResource("7_ie6h4")
+font_size = 32
+outline_size = 3
+outline_color = Color(0, 0, 0, 0)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.133333)
+
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wc61f")
+new_tile_scene = ExtResource("2_xvnxo")
+
+[node name="HB" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MC1" type="MarginContainer" parent="HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TileContainer" type="GridContainer" parent="HB/MC1"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MC2" type="MarginContainer" parent="HB"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/margin_right = 18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HB/MC2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="HB" type="HBoxContainer" parent="HB/MC2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HB/MC2/VBoxContainer/HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Moves"
+label_settings = ExtResource("1_m167l")
+vertical_alignment = 1
+
+[node name="MovesLabel" type="Label" parent="HB/MC2/VBoxContainer/HB"]
+layout_mode = 2
+text = "Moves"
+label_settings = ExtResource("1_m167l")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HB2" type="HBoxContainer" parent="HB/MC2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HB/MC2/VBoxContainer/HB2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pass"
+label_settings = ExtResource("1_m167l")
+vertical_alignment = 1
+
+[node name="PassLabel" type="Label" parent="HB/MC2/VBoxContainer/HB2"]
+layout_mode = 2
+text = "0 / 00"
+label_settings = ExtResource("1_m167l")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="HB/MC2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ExitButton" type="TextureButton" parent="HB/MC2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_r78co")
+texture_pressed = ExtResource("3_76r6t")
+texture_hover = ExtResource("4_fwpol")
+
+[node name="Label" type="Label" parent="HB/MC2/VBoxContainer/ExitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = SubResource("LabelSettings_vxp40")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+
+[node name="Scorer" parent="." instance=ExtResource("8_g4fk8")]
+
+[node name="GameOver" parent="." instance=ExtResource("9_stbae")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="HB/MC2/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

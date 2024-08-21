@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0raoud6vp0r1"]
+
+[ext_resource type="Texture2D" uid="uid://45w4phy5oxw7" path="res://assets/ui/UIbg.png" id="1_6xatq"]
+[ext_resource type="Script" path="res://game_over/game_over.gd" id="1_onnxn"]
+[ext_resource type="FontFile" uid="uid://bmsg3kgxfx6ot" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_1olk2"]
+[ext_resource type="FontFile" uid="uid://iittugcvt7g5" path="res://assets/fonts/gemunu-libre-v8-latin-700.ttf" id="2_gnldx"]
+[ext_resource type="Texture2D" uid="uid://jls3heemlkor" path="res://assets/ui/blue_button00.png" id="4_rhknl"]
+[ext_resource type="Texture2D" uid="uid://dpotuvhin2t72" path="res://assets/ui/yellow_button00.png" id="5_n6bpp"]
+[ext_resource type="Texture2D" uid="uid://btq55skump0ip" path="res://assets/ui/green_button00.png" id="6_08ghy"]
+[ext_resource type="LabelSettings" uid="uid://d1u3qbo7wlet6" path="res://assets/GM_32_White.tres" id="7_uuivn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jhcq8"]
+font = ExtResource("2_1olk2")
+font_size = 84
+font_color = Color(0.113725, 1, 1, 1)
+outline_size = 3
+outline_color = Color(0.243137, 0.298039, 0.854902, 0.980392)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.133333)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ba3ls"]
+font = ExtResource("2_gnldx")
+font_size = 32
+font_color = Color(0.0827415, 0.0827414, 0.0827414, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 0)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.133333)
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_onnxn")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -192.0
+offset_right = 256.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_6xatq")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="MC" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VB" type="VBoxContainer" parent="NinePatchRect/MC"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="NinePatchRect/MC/VB"]
+layout_mode = 2
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_jhcq8")
+horizontal_alignment = 1
+
+[node name="HB" type="HBoxContainer" parent="NinePatchRect/MC/VB"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/MC/VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Moves Taken"
+label_settings = SubResource("LabelSettings_ba3ls")
+vertical_alignment = 1
+
+[node name="MovesLabel" type="Label" parent="NinePatchRect/MC/VB/HB"]
+layout_mode = 2
+text = "0000"
+label_settings = SubResource("LabelSettings_ba3ls")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="NinePatchRect/MC/VB"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="ExitButton" type="TextureButton" parent="NinePatchRect/MC/VB"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_rhknl")
+texture_pressed = ExtResource("5_n6bpp")
+texture_hover = ExtResource("6_08ghy")
+
+[node name="Label" type="Label" parent="NinePatchRect/MC/VB/ExitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = ExtResource("7_uuivn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="NinePatchRect/MC/VB/ExitButton" to="." method="_on_exit_button_pressed"]
